@@ -1,3 +1,8 @@
+# 회고록
+- 링크
+
+
+
 # 가상환경 사용법
 - source venv/bin/activate
 - python3.7 -m venv venv

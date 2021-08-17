@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<h2>회원가입</h2>
+<form method='post'>
+    <input type="text" name='name' placeholder="이름">
+    <input type="email" name='email' placeholder="이메일">
+    <input type="password" name='password' placeholder="비밀번호">
+    <input type="password" name='password_check' placeholder="비밀번호 확인">
+    <input type='submit' name='signup' value="회원가입">
+</form>
+
+{% endblock %}
