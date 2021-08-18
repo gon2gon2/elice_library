@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<form action="/login" method="post">
+    <input type="email" name="email" placeholder="Email">
+    <input type="password" name="password" placeholder="Password">
+    <input class="btn" type="submit" value="Sign In">
+    <div>
+        <a href="/signup">회원가입</a>
+    </div>
+</form>
+{% endblock %}

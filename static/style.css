@@ -12,15 +12,9 @@ ol, ul {
     list-style: none;
   }
 
-/* navbar */
-#nav-bar > ul > li {
-    display: inline;
-}
-
 input {
     display: block;
 }
-
 
 /* global 버튼 css */
 .btn {
@@ -29,8 +23,15 @@ input {
     cursor:pointer;
 }
 
+#container {
+    margin: 100px auto;
+    float:left;
+}
 
-
+.topnav {
+    display: inline;
+    border: red 1px solid;
+}
 
 
 /* login 페이지 관련 */
@@ -72,3 +73,60 @@ input {
     text-decoration: rgb(199,195,251) underline;
 }
 
+
+/*  mainpage  */
+.book-card {
+    display:inline-flex;
+    flex-direction: column;
+    border: red solid 3px;
+    width:100px;
+    height:200px;
+    margin: 30px 15px;
+
+    align-items: center;
+    text-align:center;
+    font-size:10px;
+    /* box-sizing: border-box; */
+}
+
+.book-card .b {
+
+    margin-top: 20px;
+    font-size:10px;
+    width:30px;
+    height:30px;
+}
+
+
+.book-card .title {
+    font-size:10px;
+}
+
+.book-card .stars {
+    
+}
+
+.book-card .inventory {
+
+}
+.book-card img {
+    width:100%;
+}
+
+
+/* detail page */
+.detail-bookcover {
+    border: red solid 1px;
+}
+
+.detail-info {
+    border: red solid 1px;
+}
+
+.detail-description {
+    border: red solid 1px;
+}
+
+.detail-reply input {
+    display: inline;
+}

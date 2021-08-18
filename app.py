@@ -1,6 +1,7 @@
-from flask import Flask, request,jsonify, render_template, session, redirect, url_for
+from flask import Flask, request,jsonify, render_template, session, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from models.userModel import User
+from models.bookModel import Book
 # from flask_migrate import Migrate
 import sqlite3
 
@@ -9,39 +10,53 @@ app = Flask(__name__)
 app.secret_key = "hahaha"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/library.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['JSON_AS_ASCII'] = False
 db = SQLAlchemy(app)
 
 
 @app.route('/', methods=['GET'])
 def home():
-    if 'user_id' in session:
+    
+    # 세션이 없는 경우: login 페이지로 이동
+    if 'user_id' not in session:
         return redirect(url_for('login'))
+    
+    #  세션이 있으면 메인페이지로 이동
     else:
-        return render_template('index.html')
+        return redirect(url_for('mainpage'))
 
+app.config['JSON_AS_ASCII'] = False
 
-
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
+    if request.method == 'GET':
+        return render_template('login.html')
 
-    email = request.form['email']
-    password = request.form['password']
-    
-    user = User.query.filter(User.email==email).first()
-    
-    if password == user.password:
-        session.clear()
-        session['user_id'] = user.id
-        return redirect(url_for('home'))
-    else:
-        return jsonify({'status': "fail"})
+    elif request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        user = User.query.filter(User.email==email).first()
+        
+        if password == user.password:
+            session.clear()
+            session['user_id'] = user.id
+            session['name'] = user.name
+            return redirect(url_for('home'))
+        else:
+            return jsonify({'status': "fail"})
+        
+@app.route('/logout', methods=['GET'])
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
 
 
 
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
     if request.method == 'GET':
-        return render_template('signup.html')
+        return render_template("signup.html")
     
     elif request.method == 'POST':
         name = request.form['name']
@@ -63,7 +78,26 @@ def signup():
         db.session.add(user)
         db.session.commit()
         
-        return render_template('index.html')
+        return render_template('login.html')
+    
+@app.route('/mainpage', methods=["GET"])
+def mainpage():
+    books = Book.query.all()
+    result = []
+    for book in books:
+        result.append(book.to_dict())
+    
+    return render_template('mainpage.html', contents=result)
+
+
+@app.route('/detail/<int:book_id>', methods=['GET', 'POST'])
+def detail(book_id):
+    if request.method == 'GET':
+        book = Book.query.filter(Book.id == book_id).first()
+        return render_template('detail.html', content=book)
+    elif request.method == 'POST':
+        # 댓글 달기 로직
+        return 
     
     
 # if __name__ == "__main__":
