@@ -1,9 +1,12 @@
+import csv
+from datetime import date, datetime
+
 from flask import Flask, request,jsonify, render_template, session, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from models.userModel import User
 from models.bookModel import Book
-# from flask_migrate import Migrate
-import sqlite3
+from flask_migrate import Migrate
+
 
 
 app = Flask(__name__)
@@ -12,7 +15,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/library.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['JSON_AS_ASCII'] = False
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
+# @app.route('/init', methods=['GET'])
+# def init_data():
+    
 
 @app.route('/', methods=['GET'])
 def home():
@@ -100,6 +107,6 @@ def detail(book_id):
         return 
     
     
-# if __name__ == "__main__":
-#     app.secret_key = "hahaha"
-#     app.run(debug=True)
+if __name__ == "__main__":
+    app.secret_key = "hahaha"
+    app.run(debug=True)

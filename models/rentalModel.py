@@ -1,5 +1,7 @@
-from db_connect import db
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+
+db = SQLAlchemy()
 
 class Rental(db.Model):
     __tablename__ = "rental"

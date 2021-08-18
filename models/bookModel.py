@@ -1,4 +1,5 @@
-from db_connect import db
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
 
 class Book(db.Model):
     __tablename__ = "book"
@@ -11,6 +12,8 @@ class Book(db.Model):
     isbn = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=False)
     link = db.Column(db.Text, nullable=False)
+    inventory = db.Column(db.Integer, nullable=False)
+    
     
     def to_dict(self):
         result = {
@@ -23,6 +26,7 @@ class Book(db.Model):
             'isbn': self.isbn,
             'description' : self.description,
             'link': self.link,
+            'inventory': self.inventory,
             'img':f"../data/bookcover/{str(self.id)}.png"
         }
         return result
