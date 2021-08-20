@@ -4,7 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_marshmallow import Marshmallow
 
-from datetime import date, timedelta
 import config
 
 db = SQLAlchemy()
@@ -12,154 +11,23 @@ migrate = Migrate()
 ma = Marshmallow()
 
 def create_app():
-    from .models import User, Book, Rental, UserSchema, BookSchema, RentalSchema
     
-    userSchema = UserSchema()
-    bookSchema = BookSchema()
-    rentalSchema = RentalSchema()
-
+    from .models import Book
+    
     app = Flask(__name__)
     app.config.from_object(config)
     app.secret_key = "hahaha"
 
+    from .views import user_views, book_views, rental_views
+    app.register_blueprint(user_views.bp)
+    app.register_blueprint(book_views.bp)
+    app.register_blueprint(rental_views.bp)
     
     # ORM
     db.init_app(app)
     migrate.init_app(app, db)
     ma.init_app(app)
         
-
-    @app.route('/', methods=['GET'])
-    def home():
-        # 세션이 없는 경우: login 페이지로 이동
-        if 'user_id' not in session:
-            return redirect(url_for('login'))
-        
-        #  세션이 있으면 메인페이지로 이동
-        else:
-            return redirect(url_for('mainpage'))
-
-    @app.route('/login', methods=['GET','POST'])
-    def login():
-        if request.method == 'GET':
-            return render_template('login.html')
-
-        elif request.method == 'POST':
-            email = request.form['email']
-            password = request.form['password']
-
-            user = User.query.filter(User.email==email).first()
-            
-            if password == user.password:
-                session.clear()
-                session['user_id'] = user.id
-                session['name'] = user.name
-                return redirect(url_for('home'))
-            else:
-                return jsonify({'status': "fail"})
-            
-    @app.route('/logout', methods=['GET'])
-    def logout():
-        session.clear()
-        return redirect(url_for('login'))
-
-    @app.route('/signup', methods=['POST', 'GET'])
-    def signup():
-        if request.method == 'GET':
-            return render_template("signup.html")
-        
-        elif request.method == 'POST':
-            name = request.form['name']
-            email = request.form['email']
-            password = request.form['password']
-            password_check = request.form['password_check']
-            
-            if password != password_check:
-                return "비밀번호가 일치하지 않습니다"
-            
-            elif User.query.filter(User.email==email).first() != None:
-                return '이미 존재하는 유저입니다'
-            
-            user = User(
-                email=email,
-                password=password,
-                name=name
-                )
-            db.session.add(user)
-            db.session.commit()
-            
-            return render_template('login.html')
-        
-    @app.route('/mainpage', methods=["POST","GET"])
-    def mainpage():
-        
-        books = Book.query.all()
-        result = []
-        for book in books:
-            result.append(book.to_dict())
-        
-        return render_template('mainpage.html', contents=result)
-
-    @app.route('/detail/<int:book_id>', methods=['GET', 'POST'])
-    def detail(book_id):
-        if request.method == 'GET':
-            book = Book.query.filter(Book.id == book_id).first()
-            return render_template('detail.html', content=book)
-        elif request.method == 'POST':
-            # 댓글 달기 로직
-            return 
-    
-    
-    
-    
-    #  대여한 책 목록
-    # 다 하고 메인페이지 href 수정
-    @app.route('/rented_books', methods=['GET'])
-    def rented():
-        # 유저 id로 대여기록에 쿼리를 날린다
-        # 대여기록 쿼리에서 
-        user_id = session['user_id']
-        rented_books = Rental.query.filter(Rental.user_id == user_id).all()
-
-        result = []
-        for book in rented_books:
-            result.append(rentalSchema.dump(book))
-            
-        return jsonify(result)
-        
-    #  대여하기
-    @app.route('/rent/<int:book_id>', methods=['GET'])
-    def rent(book_id):
-        book = Book.query.filter(Book.id == book_id).first()
-        if book.stock <= 0:
-            flash("대여하실 수 없습니다.")
-            return redirect(url_for('mainpage'))
-        else:
-            
-            start_date = date.today()
-            end_date = start_date + timedelta(10)
-            ### rental에 데이터 추가
-            log = Rental(
-                user_id = session['user_id'],
-                book_id = book_id,
-                start_date = date.today(),
-                end_date = end_date
-            )
-            book.stock = book.stock - 1
-            db.session.add(log)
-            db.session.commit()
-            
-            return redirect(url_for('mainpage'))
-            
-    #  반납하기
-    @app.route('/book_return/<int:book_id>', methods=['POST'])
-    def rented_books():
-        return        
-            
-            
-            
-            
-            
             
     @app.route('/init', methods=['GET', 'POST'])
     def init_data():

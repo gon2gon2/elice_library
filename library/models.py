@@ -26,23 +26,6 @@ class Book(db.Model):
         self.image_path = image_path
         self.stock = stock
         self.rating = rating
-        
-    
-    def to_dict(self):
-        result = {
-            'id' : self.id,
-            'book_name' : self.book_name,
-            'publisher' : self.publisher,
-            'author': self.author,
-            'published_at': self.published_at,
-            'pages': self.pages,
-            'isbn': self.isbn,
-            'description' : self.description,
-            'image_path': self.image_path,
-            'stock': self.stock,
-            'rating': self.rating
-        }
-        return result
     
     
 class User(db.Model):
@@ -61,13 +44,6 @@ class User(db.Model):
 
 class Rental(db.Model):
     __tablename__ = "rental"
-    
-    # id: 대여기록 고유 id
-    # start : 대여 시작일
-    # end: 대여 종료일
-    # user_id : 빌리는 사람 id
-    # book_id : book테이블의 id
-    
     id = db.Column(db.Integer, nullable=False, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     book_id  = db.Column(db.Integer, db.ForeignKey('book.id'))
@@ -114,10 +90,6 @@ class UserSchema(ma.SQLAlchemySchema):
             'password',
             'name',
         )
-    
-    
-    
-    
     
 class RentalSchema(ma.SQLAlchemySchema):
     class Meta:
