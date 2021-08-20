@@ -1,26 +1,26 @@
 {% extends 'layout.html' %}
 {% block main %}
     <div class="detail-bookcover">
-        이미지
+        <img src="{{ book.image_path }}" alt="">
     </div>
     <div class="detail-info">
-        <p>책 이름: {{ content['book_name'] }}</p>
-        <p>출판사: {{ content['publisher'] }}</p>
-        <p>저자: {{ content['author'] }}</p>
-        <p>출간일: {{ content['publication_date'] }}</p>
-        <p>페이지 수: {{ content['pages'] }}</p>
-        <p>ISBN 코드: {{ content['isbn'] }}</p>
+        <p>책 이름: {{ book['book_name'] }}</p>
+        <p>출판사: {{ book['publisher'] }}</p>
+        <p>저자: {{ book['author'] }}</p>
+        <p>출간일: {{ book['publication_date'] }}</p>
+        <p>페이지 수: {{ book['pages'] }}</p>
+        <p>ISBN 코드: {{ book['isbn'] }}</p>
     </div>
     <div class="detail-description">
         <h3>책 소개</h3>
-        <p>{{ content['description'] }}</p>
+        <p>{{ book['description'] }}</p>
     </div>
     <div class="detail-reply">
         <h3>댓글</h3>
         <!-- 대충 for문으로 댓글 하나씩  -->
         <form method='post'>
             <input type="text" placeholder="댓글달기">
-            <input type="" value="작성하기">
+            <input type="submit" value="작성하기">
         </form>
     </div>
     

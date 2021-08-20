@@ -13,7 +13,7 @@ def home():
     
     #  세션이 있으면 메인페이지로 이동
     else:
-        return redirect(url_for('mainpage'))
+        return redirect(url_for('book.mainpage'))
 
 @bp.route('/login', methods=['GET','POST'])
 def login():

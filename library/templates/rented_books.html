@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block main %}
+{% if books %}
+    <ul>
+    {% for book in books %}
+        <div class="book-card">
+            <div class="bookcover">
+                <img src="{{ book['Book'].image_path }}" alt="">
+            </div>
+            <a href="/detail/{{ book['Book'].id }}" class="title">
+                {{ book['Book'].book_name }}
+            </a>
+            <div>
+                <p>{{ book['Rental'].start_date }}</p>
+                <p>~ {{ book['Rental'].end_date }}</p>
+            </div>
+            <button>
+                <a href="/return_book/{{ book['Book'].id }}">반납하기</a>
+            </button>
+        </div>
+    {% endfor %}
+    </ul>
+{% elif not books %}
+    <h2>대여한 책이 없습니다.</h2>
+{% endif %}
+
+{% endblock %}

@@ -22,7 +22,7 @@ input {
     background-color:#6558f5;
     cursor:pointer;
 }
-
+/*
 #container {
     margin: 100px auto;
     float:left;
@@ -31,7 +31,15 @@ input {
 .topnav {
     display: inline;
     border: red 1px solid;
-}
+} */
+
+
+
+
+
+
+
+
 
 
 /* login 페이지 관련 */
@@ -74,6 +82,14 @@ input {
 }
 
 
+
+
+
+
+
+
+
+
 /*  mainpage  */
 .book-card {
     display:inline-flex;
@@ -110,7 +126,8 @@ input {
 
 }
 .book-card img {
-    width:100%;
+    width:100px;
+    height:100px;
 }
 
 

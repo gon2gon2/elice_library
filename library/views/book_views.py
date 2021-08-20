@@ -15,13 +15,13 @@ def mainpage():
     for book in books:
         result.append(bookSchema.dump(book))
     
-    return render_template('mainpage.html', contents=result)
+    return render_template('mainpage.html', books=result)
 
 @bp.route('/detail/<int:book_id>', methods=['GET', 'POST'])
 def detail(book_id):
     if request.method == 'GET':
         book = Book.query.filter(Book.id == book_id).first()
-        return render_template('detail.html', content=book)
+        return render_template('detail.html', book=book)
     elif request.method == 'POST':
         # 댓글 달기 로직
         return 

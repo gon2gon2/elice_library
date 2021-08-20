@@ -56,9 +56,6 @@ class Rental(db.Model):
         self.book_id = book_id
         self.start_date = start_date
         self.end_date = end_date
-        
-    def as_dict(self):
-       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
    
 # 30분 
 # 쿼리작성 
