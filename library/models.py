@@ -1,4 +1,4 @@
-from . import db
+from . import db, ma
 
 class Book(db.Model):
     __tablename__ = "book"
@@ -80,3 +80,53 @@ class Rental(db.Model):
         self.book_id = book_id
         self.start_date = start_date
         self.end_date = end_date
+        
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+   
+# 30분 
+# 쿼리작성 
+# JSON error
+# marshmallow로 해야겠다.
+class BookSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = Book
+        fields = (
+            'id',
+            'book_name',
+            'publisher',
+            'author',
+            'published_at',
+            'pages',
+            'isbn',
+            'description',
+            'image_path',
+            'stock',
+            'rating',
+            )
+
+class UserSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = User
+        fields = (
+            'id',
+            'email',
+            'password',
+            'name',
+        )
+    
+    
+    
+    
+    
+class RentalSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = Rental
+        include_fk = True
+        fields = (
+            'id',
+            'user_id',
+            'book_id',
+            'start_date',
+            'end_date',
+        )

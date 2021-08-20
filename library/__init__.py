@@ -1,16 +1,22 @@
-from flask import Flask, request,jsonify, render_template, session, redirect, url_for, flash
+from flask import Flask, request,jsonify, render_template, session, redirect, url_for, flash, json
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_marshmallow import Marshmallow
 
 from datetime import date, timedelta
 import config
 
 db = SQLAlchemy()
 migrate = Migrate()
+ma = Marshmallow()
 
 def create_app():
-    from .models import User, Book, Rental
+    from .models import User, Book, Rental, UserSchema, BookSchema, RentalSchema
+    
+    userSchema = UserSchema()
+    bookSchema = BookSchema()
+    rentalSchema = RentalSchema()
 
     app = Flask(__name__)
     app.config.from_object(config)
@@ -20,8 +26,7 @@ def create_app():
     # ORM
     db.init_app(app)
     migrate.init_app(app, db)
-
-    
+    ma.init_app(app)
         
 
     @app.route('/', methods=['GET'])
@@ -104,16 +109,25 @@ def create_app():
             # 댓글 달기 로직
             return 
     
-    @app.route('/book_return', methods=['GET'])
-    def rent_book():
-        
-        return 
     
-    @app.route('/book_return/<int:book_id>', methods=['POST'])
-    def rented_books():
-        return
+    
+    
+    #  대여한 책 목록
+    # 다 하고 메인페이지 href 수정
+    @app.route('/rented_books', methods=['GET'])
+    def rented():
+        # 유저 id로 대여기록에 쿼리를 날린다
+        # 대여기록 쿼리에서 
+        user_id = session['user_id']
+        rented_books = Rental.query.filter(Rental.user_id == user_id).all()
+
+        result = []
+        for book in rented_books:
+            result.append(rentalSchema.dump(book))
+            
+        return jsonify(result)
         
-        
+    #  대여하기
     @app.route('/rent/<int:book_id>', methods=['GET'])
     def rent(book_id):
         book = Book.query.filter(Book.id == book_id).first()
@@ -137,7 +151,10 @@ def create_app():
             
             return redirect(url_for('mainpage'))
             
-            
+    #  반납하기
+    @app.route('/book_return/<int:book_id>', methods=['POST'])
+    def rented_books():
+        return        
             
             
             

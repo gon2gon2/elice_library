@@ -1,5 +1,5 @@
 # 회고록
-- 링크
+- <a href="https://kdt-gitlab.elice.io/002-part2-project-library/team2/2-1/-/wikis/home">Wiki</a>
 
 
 
