@@ -14,8 +14,7 @@ rentalSchema = RentalSchema()
 def rented():
 
     user_id = session['user_id']
-    rented_books = db.session.query(Book, Rental).filter((Rental.book_id == Book.id)&(Rental.user_id == user_id)).all()
-        
+    rented_books = Rental.query.filter(Rental.user_id == user_id).all()
     return render_template('rented_books.html', books=rented_books)
     
 #  대여하기

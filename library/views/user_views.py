@@ -9,7 +9,7 @@ bp = Blueprint('user', __name__)
 def home():
     # 세션이 없는 경우: login 페이지로 이동
     if 'user_id' not in session:
-        return redirect(url_for('login'))
+        return redirect(url_for('user.login'))
     
     #  세션이 있으면 메인페이지로 이동
     else:

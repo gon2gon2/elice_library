@@ -5,17 +5,17 @@
     {% for book in books %}
         <div class="book-card">
             <div class="bookcover">
-                <img src="{{ book['Book'].image_path }}" alt="">
+                <img src="{{ book.BOOK.image_path }}" alt="">
             </div>
-            <a href="/detail/{{ book['Book'].id }}" class="title">
-                {{ book['Book'].book_name }}
+            <a href="/detail/{{ book.BOOK.id }}" class="title">
+                {{ book.BOOK.book_name }}
             </a>
             <div>
-                <p>{{ book['Rental'].start_date }}</p>
-                <p>~ {{ book['Rental'].end_date }}</p>
+                <p>{{ book.start_date }}</p>
+                <p>~ {{ book.end_date }}</p>
             </div>
             <button>
-                <a href="/return_book/{{ book['Book'].id }}">반납하기</a>
+                <a href="/return_book/{{ book.BOOK.id }}">반납하기</a>
             </button>
         </div>
     {% endfor %}

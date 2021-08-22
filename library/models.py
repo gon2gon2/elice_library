@@ -1,7 +1,8 @@
 from . import db, ma
 
 class Book(db.Model):
-    __tablename__ = "book"
+    __tablename__ = "BOOK"
+    rental = db.relationship('Rental', backref="BOOK")
     id = db.Column(db.Integer, nullable=False, primary_key=True)
     book_name = db.Column(db.Text, nullable=False)
     publisher = db.Column(db.Text, nullable=False)
@@ -12,7 +13,7 @@ class Book(db.Model):
     description = db.Column(db.Text, nullable=False)
     image_path = db.Column(db.Text, nullable=False)
     stock = db.Column(db.Integer, nullable=False)
-    rating = db.Column(db.Float, nullable=False)
+    rating = db.Column(db.Float, nullable=False)    
     
     def __init__(self, id, book_name, publisher, author, published_at, pages, isbn, description, image_path, stock, rating):
         self.id = id
@@ -26,10 +27,10 @@ class Book(db.Model):
         self.image_path = image_path
         self.stock = stock
         self.rating = rating
-    
-    
+        
 class User(db.Model):
-    __tablename__ = "user"
+    __tablename__ = "USER"
+    children = db.relationship('Rental')
     id = db.Column(db.Integer, nullable=False, primary_key=True)
     email = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(50), nullable=False)
@@ -39,16 +40,15 @@ class User(db.Model):
         self.email = email
         self.password = password
         self.name = name
-        
-
 
 class Rental(db.Model):
-    __tablename__ = "rental"
+    __tablename__ = "RENTAL"
     id = db.Column(db.Integer, nullable=False, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    book_id  = db.Column(db.Integer, db.ForeignKey('book.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('USER.id'))
+    book_id  = db.Column(db.Integer, db.ForeignKey('BOOK.id'))
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
+    
     
     
     def __init__(self, user_id, book_id, start_date, end_date):

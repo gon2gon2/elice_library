@@ -41,7 +41,7 @@ def create_app():
                 import csv
                 from datetime import datetime
 
-                with open('books.csv', 'r') as f:
+                with open('library/books.csv', 'r') as f:
                     reader = csv.DictReader(f)
 
                     for row in reader:
@@ -50,7 +50,7 @@ def create_app():
                         image_path = f"/static/image/{row['id']}"
                         try:
                             open(f'app/{image_path}.png')
-                            image_path += '.png'
+                            image_path += '.jpg'
                         except:
                             image_path += '.jpg'
 

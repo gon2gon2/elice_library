@@ -7,15 +7,10 @@ bp = Blueprint('book', __name__)
 
 bookSchema = BookSchema()
 
-@bp.route('/mainpage', methods=["POST","GET"])
+@bp.route('/mainpage', methods=["GET"])
 def mainpage():
-    
-    books = Book.query.all()
-    result = []
-    for book in books:
-        result.append(bookSchema.dump(book))
-    
-    return render_template('mainpage.html', books=result)
+    books = Book.query.all()    
+    return render_template('mainpage.html', books=books)
 
 @bp.route('/detail/<int:book_id>', methods=['GET', 'POST'])
 def detail(book_id):
