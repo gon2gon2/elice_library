@@ -10,11 +10,11 @@ bp = Blueprint('rental', __name__)
 bookSchema = BookSchema()
 rentalSchema = RentalSchema()
 
+# 대여 기록
 @bp.route('/rented_books', methods=['GET'])
 def rented():
-
     user_id = session['user_id']
-    rented_books = Rental.query.filter(Rental.user_id == user_id).all()
+    rented_books = Rental.query.filter(Rental.user_id == user_id).order_by(Rental.returned).all()
     return render_template('rented_books.html', books=rented_books)
     
 #  대여하기
@@ -49,9 +49,12 @@ def rented_books(book_id):
     book = Book.query.filter(Book.id == book_id).first()
     
     # 반납할 책을 찾아서 Rental에서 삭제
-    db.session.delete(book_returned)
+    # 날짜를 오늘로 바꾸고 returned를 True로 바꿈
+    book_returned.end_date = date.today()
+    book_returned.returned = True
+    
+    # 반납된 책의 재고를 +1
     book.stock = book.stock + 1
     
-    # book.stock + 1
     db.session.commit()
     return redirect(url_for('rental.rented'))

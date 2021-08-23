@@ -26,13 +26,14 @@ def login():
 
         user = User.query.filter(User.email==email).first()
         
-        if password == user.password:
-            session.clear()
-            session['user_id'] = user.id
-            session['name'] = user.name
-            return redirect(url_for('user.home'))
-        else:
+        if password != user.password:
             return jsonify({'status': "fail"})
+        
+        session.clear()
+        session['user_id'] = user.id
+        session['name'] = user.name
+        return redirect(url_for('user.home'))
+            
             
 @bp.route('/logout', methods=['GET'])
 def logout():
