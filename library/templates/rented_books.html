@@ -1,23 +1,24 @@
 {% extends 'layout.html' %}
 {% block main %}
+<div class="main-content">
 {% if books %}
     <ul>
     {% for book in books %}
         <div class="book-card">
-            <div class="bookcover">
+            <div class="book-image">
                 <img src="{{ book.BOOK.image_path }}" alt="">
             </div>
-            <a href="/detail/{{ book.BOOK.id }}" class="title">
+            <a href="/detail/{{ book.BOOK.id }}" class="book-title">
                 {{ book.BOOK.book_name }}
             </a>
-            <div>
+            <div class="book-stock">
                 <p>{{ book.start_date }}</p>
                 <p>~ {{ book.end_date }}</p>
             </div>
             {% if book.returned %}
-                <h5>반납됨</h5>
+                <h5 class="book-rent">반납됨</h5>
             {% else %}
-            <button>
+            <button class="btn book-rent">
                 <a href="/return_book/{{ book.BOOK.id }}">반납하기</a>
             </button>
             {% endif %}
@@ -28,5 +29,6 @@
 {% elif not books %}
     <h2>대여한 책이 없습니다.</h2>
 {% endif %}
+</div>
 
 {% endblock %}

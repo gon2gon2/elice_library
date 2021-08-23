@@ -1,27 +1,55 @@
 {% extends 'layout.html' %}
 {% block main %}
-    <div class="detail-bookcover">
-        <img src="{{ book.image_path }}" alt="">
+<div class="main-content">
+    <div class="detail">
+        <div class='detail-row'>
+            <div class="detail-image">
+                <img src="{{ book.image_path }}" alt="">
+            </div>
+            <div class="detail-info">
+                <div class="col">
+                    <p>책 이름</p>
+                    <p>출판사</p>
+                    <p>저자</p>
+                    <p>출간일</p>
+                    <p>페이지 수</p>
+                    <p>ISBN 코드</p>
+                </div>
+                <div class="col">
+                    <p>{{ book['book_name'] }}</p>
+                    <p>{{ book['publisher'] }}</p>
+                    <p>{{ book['author'] }}</p>
+                    <p>{{ book['published_at'] }}</p>
+                    <p>{{ book['pages'] }}</p>
+                    <p>{{ book['isbn'] }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="detail-description detail-row">
+            <h4>책 소개</h4>
+            <p>{{ book['description'] }}</p>
+        </div>
+        <div class="detail-reply detail-row">
+            <h4>댓글</h4>
+            <form method='post'>
+                <input type="text" placeholder="댓글달기">
+                <input type="submit" value="작성하기">
+            </form>
+        </div>
     </div>
-    <div class="detail-info">
-        <p>책 이름: {{ book['book_name'] }}</p>
-        <p>출판사: {{ book['publisher'] }}</p>
-        <p>저자: {{ book['author'] }}</p>
-        <p>출간일: {{ book['publication_date'] }}</p>
-        <p>페이지 수: {{ book['pages'] }}</p>
-        <p>ISBN 코드: {{ book['isbn'] }}</p>
+</div>
+
+
+<!-- <div>
+    <div class="box box1">
+        box1
     </div>
-    <div class="detail-description">
-        <h3>책 소개</h3>
-        <p>{{ book['description'] }}</p>
+    <div class="box box2">
+        box2
     </div>
-    <div class="detail-reply">
-        <h3>댓글</h3>
-        <!-- 대충 for문으로 댓글 하나씩  -->
-        <form method='post'>
-            <input type="text" placeholder="댓글달기">
-            <input type="submit" value="작성하기">
-        </form>
-    </div>
-    
+</div>
+<div class="box box3">
+    box3
+</div> -->
+
 {% endblock %}

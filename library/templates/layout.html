@@ -10,20 +10,20 @@
 <body>
     {% if session %}
         <header>
-            <div>
+            <!-- <div>
                 <h3>
                     안녕하세요 {{session['name']}}님!
                 </h3>
-            </div>
+            </div> -->
             <div class="topnav">
-                <a href="/">레이서 도서관</a>
-                <a href="/rented_books">대여기록</a>
-                <a href="/">반납하기</a>
-                <a href="/logout">로그아웃</a>
+                <a class="left" href="/">레이서 도서관</a>
+                <a class="right" href="/rented_books">대여기록</a>
+                <a class="right" href="/">반납하기</a>
+                <a class="right" href="/logout">로그아웃</a>
             </div>
         </header>
     {% endif %}
-    <main>
+    <main role="main" class="main">
         {% block main %}
         {% endblock %}
     </main>

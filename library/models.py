@@ -9,7 +9,7 @@ class Book(db.Model):
     author = db.Column(db.Text, nullable=False)
     published_at = db.Column(db.Text, nullable=False)
     pages = db.Column(db.Integer, nullable=False)
-    isbn = db.Column(db.Float, nullable=False)
+    isbn = db.Column(db.Integer, nullable=False)
     description = db.Column(db.Text, nullable=False)
     image_path = db.Column(db.Text, nullable=False)
     stock = db.Column(db.Integer, nullable=False)
