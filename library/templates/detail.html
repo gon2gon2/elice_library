@@ -1,55 +1,39 @@
 {% extends 'layout.html' %}
 {% block main %}
-<div class="main-content">
-    <div class="detail">
-        <div class='detail-row'>
-            <div class="detail-image">
-                <img src="{{ book.image_path }}" alt="">
+<div class="detail">
+    <div class='detail-row'>
+        <div class="detail-image">
+            <img src="{{ book.image_path }}" alt="">
+        </div>
+        <div class="detail-info">
+            <div class="col">
+                <p>책 이름</p>
+                <p>출판사</p>
+                <p>저자</p>
+                <p>출간일</p>
+                <p>페이지 수</p>
+                <p>ISBN 코드</p>
             </div>
-            <div class="detail-info">
-                <div class="col">
-                    <p>책 이름</p>
-                    <p>출판사</p>
-                    <p>저자</p>
-                    <p>출간일</p>
-                    <p>페이지 수</p>
-                    <p>ISBN 코드</p>
-                </div>
-                <div class="col">
-                    <p>{{ book['book_name'] }}</p>
-                    <p>{{ book['publisher'] }}</p>
-                    <p>{{ book['author'] }}</p>
-                    <p>{{ book['published_at'] }}</p>
-                    <p>{{ book['pages'] }}</p>
-                    <p>{{ book['isbn'] }}</p>
-                </div>
+            <div class="col">
+                <p>{{ book['book_name'] }}</p>
+                <p>{{ book['publisher'] }}</p>
+                <p>{{ book['author'] }}</p>
+                <p>{{ book['published_at'] }}</p>
+                <p>{{ book['pages'] }}</p>
+                <p>{{ book['isbn'] }}</p>
             </div>
         </div>
-        <div class="detail-description detail-row">
-            <h4>책 소개</h4>
-            <p>{{ book['description'] }}</p>
-        </div>
-        <div class="detail-reply detail-row">
-            <h4>댓글</h4>
-            <form method='post'>
-                <input type="text" placeholder="댓글달기">
-                <input type="submit" value="작성하기">
-            </form>
-        </div>
+    </div>
+    <h4 class="detail-title">책 소개</h4>
+    <div class="detail-description detail-row">
+        <p>{{ book['description'] }}</p>
+    </div>
+    <h4 class="detail-title">댓글</h4>
+    <div class="detail-reply detail-row"> 
+        <form method='post'>
+            <input type="text" placeholder="댓글달기">
+            <input type="submit" value="작성하기">
+        </form>
     </div>
 </div>
-
-
-<!-- <div>
-    <div class="box box1">
-        box1
-    </div>
-    <div class="box box2">
-        box2
-    </div>
-</div>
-<div class="box box3">
-    box3
-</div> -->
-
 {% endblock %}
