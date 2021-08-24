@@ -3,6 +3,7 @@ from . import db, ma
 class Book(db.Model):
     __tablename__ = "BOOK"
     rental = db.relationship('Rental', backref="BOOK")
+    reply = db.relationship('Reply', backref="BOOK")
     id = db.Column(db.Integer, nullable=False, primary_key=True)
     book_name = db.Column(db.Text, nullable=False)
     publisher = db.Column(db.Text, nullable=False)
@@ -30,7 +31,8 @@ class Book(db.Model):
         
 class User(db.Model):
     __tablename__ = "USER"
-    children = db.relationship('Rental')
+    rental = db.relationship('Rental')
+    reply = db.relationship('Reply', backref="USER")
     id = db.Column(db.Integer, nullable=False, primary_key=True)
     email = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(50), nullable=False)
@@ -57,6 +59,20 @@ class Rental(db.Model):
         self.book_id = book_id
         self.start_date = start_date
         self.end_date = end_date
+   
+class Reply(db.Model):
+    __tablename__ = "REPLY"
+    id = db.Column(db.Integer, nullable=False, primary_key=True)
+    book_id  = db.Column(db.Integer, db.ForeignKey('BOOK.id')) # 책
+    user_id = db.Column(db.Integer, db.ForeignKey('USER.id')) # 작성자
+    comment = db.Column(db.Text, nullable=False)
+    
+    def __init__(self, user_id, book_id, comment):
+        self.user_id = user_id
+        self.book_id = book_id
+        self.comment = comment
+   
+   
    
 # 30분 
 # 쿼리작성 
