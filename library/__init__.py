@@ -2,13 +2,11 @@ from flask import Flask, request, render_template, redirect, url_for
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_marshmallow import Marshmallow
 
 import config
 
 db = SQLAlchemy()
 migrate = Migrate()
-ma = Marshmallow()
 
 def create_app():
     
@@ -26,7 +24,6 @@ def create_app():
     # ORM
     db.init_app(app)
     migrate.init_app(app, db)
-    ma.init_app(app)
         
             
     @app.route('/init', methods=['GET', 'POST'])
