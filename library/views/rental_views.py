@@ -2,13 +2,11 @@ from flask import Blueprint, request, session, render_template, redirect,url_for
 from datetime import date, timedelta
 
 
-from library.models import Book, BookSchema, Rental, RentalSchema
+from library.models import Book, Rental
 from library import db
 
 bp = Blueprint('rental', __name__)
 
-bookSchema = BookSchema()
-rentalSchema = RentalSchema()
 
 # 대여 기록
 @bp.route('/rented_books', methods=['GET'])
