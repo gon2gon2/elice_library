@@ -16,10 +16,13 @@
                 <p>~ {{ book.end_date }}</p>
             </div>
             {% if book.returned %}
-                <h5 class="book-rent">반납 됨</h5>
+                <h5 class="book-rent">반납됨</h5>
             {% else %}
-                <h5 class="book-rent">반납 안 됨</h5>
+            <button class="btn book-rent">
+                <a href="/return_book/{{ book.BOOK.id }}">반납하기</a>
+            </button>
             {% endif %}
+            
         </div>
     {% endfor %}
     </ul>

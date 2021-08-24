@@ -14,7 +14,7 @@ rentalSchema = RentalSchema()
 @bp.route('/rented_books', methods=['GET'])
 def rented():
     user_id = session['user_id']
-    rented_books = Rental.query.filter(Rental.user_id == user_id).order_by(Rental.returned).all()
+    rented_books = Rental.query.filter(Rental.user_id == user_id).order_by(Rental.end_date.desc()).all()
     return render_template('rented_books.html', books=rented_books)
     
 #  대여하기
@@ -41,7 +41,16 @@ def rent(book_id):
         
         return redirect(url_for('book.mainpage'))
         
-#  반납하기
+#  반납하기 페이지
+@bp.route('/return_book', methods=['GET'])
+def return_books():
+    user_id = session['user_id']
+    books = Rental.query.filter((Rental.returned==0) & (Rental.user_id == user_id)).all()
+    
+    return render_template('return_books.html', books=books)
+        
+
+#  반납기능
 @bp.route('/return_book/<int:book_id>', methods=['GET'])
 def rented_books(book_id):
     user_id = session['user_id']
