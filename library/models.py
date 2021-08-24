@@ -65,12 +65,14 @@ class Reply(db.Model):
     id = db.Column(db.Integer, nullable=False, primary_key=True)
     book_id  = db.Column(db.Integer, db.ForeignKey('BOOK.id')) # 책
     user_id = db.Column(db.Integer, db.ForeignKey('USER.id')) # 작성자
+    rating = db.Column(db.Integer, default=5)
     comment = db.Column(db.Text, nullable=False)
     
     def __init__(self, user_id, book_id, comment):
         self.user_id = user_id
         self.book_id = book_id
         self.comment = comment
+        # self.rating = rating
    
    
    

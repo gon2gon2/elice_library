@@ -1,7 +1,24 @@
-const login = document.querySelector("#login > input.btn");
+const stars = document.querySelectorAll('body > main > div > div.detail-reply.detail-row > form > div > input');
 
-login.addEventListener('click', clickHandler);
+function checkStar(e) {
+    const v = e.target.value;
 
-function clickHandler() {
-    console.log("clicked!!");
+    if (e.target.checked ===true) {
+        for(i=0; i<v; i++){
+            stars[i].checked=true;
+        }
+    } if (e.target.checked === false) {
+        for(i=0; i<stars.length; i++){
+            stars[i].checked=false;
+        }
+        for(i=0; i<v; i++){
+            stars[i].checked=true;
+        }
+    }
+}
+
+
+
+for(i=0; i<stars.length; i++) {
+    stars[i].addEventListener('click', checkStar);
 }
