@@ -2,8 +2,6 @@
 
 *.db
 
-*.csv
-
 *.pyc
 
 migrations
