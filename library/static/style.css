@@ -218,12 +218,15 @@ input {
     display:none;
 } */
 
-.rating > .rate_radio{
+
+.rating > input[type=checkbox]{
     display: inline;
-    background-image: url('../static/star.png');
+    background-image: url('./star.png');
     height: 30px;
     width: 30px;
 }
+
+
 
 .box{
     display:inline;
