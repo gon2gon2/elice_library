@@ -1,0 +1,13 @@
+*.a
+
+*.db
+
+*.pyc
+
+migrations
+
+.vscode
+
+__pycache__
+
+/venv

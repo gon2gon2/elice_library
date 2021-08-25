@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% block main %}
+    <!-- <h1>메인페이지입니다.</h1> -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+    <div class="main-content">
+        {% for book in books %}
+            <div class='book-card'>
+
+                <div class="book-image">
+                    <img src="{{ book.image_path }}" alt="">
+                </div>
+                
+                <div class="book-title">
+                    <a href="/detail/{{ book.id }}">
+                        {{ book.book_name }}
+                    </a>
+                </div>
+
+                <div class="book-star">
+                    * * * * *
+                </div>
+
+                <div class="book-stock">
+                    {{ book.stock }}권 남음
+                </div>
+                <button class="btn book-rent">
+                    <a  href="/rent_book/{{ book.id }}">대여하기</a>
+                </button>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

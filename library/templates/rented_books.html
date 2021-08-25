@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% block main %}
+<div class="main-content">
+{% if books %}
+    <ul>
+    {% for book in books %}
+        <div class="book-card">
+            <div class="book-image">
+                <img src="{{ book.BOOK.image_path }}" alt="">
+            </div>
+            <a href="/detail/{{ book.BOOK.id }}" class="book-title">
+                {{ book.BOOK.book_name }}
+            </a>
+            <div class="book-stock">
+                <p>{{ book.start_date }}</p>
+                <p>~ {{ book.end_date }}</p>
+            </div>
+            {% if book.returned %}
+                <h5 class="book-rent">반납 됨</h5>
+            {% else %}
+                <h5 class="book-rent">반납 안 됨</h5>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </ul>
+{% elif not books %}
+    <h2>대여한 책이 없습니다.</h2>
+{% endif %}
+</div>
+
+{% endblock %}

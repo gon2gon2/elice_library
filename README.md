@@ -1,3 +1,8 @@
+# 회고록
+- <a href="https://kdt-gitlab.elice.io/002-part2-project-library/team2/2-1/-/wikis/home">Wiki</a>
+
+
+
 # 가상환경 사용법
 - source venv/bin/activate
 - python3.7 -m venv venv
