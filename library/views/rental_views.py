@@ -7,6 +7,10 @@ from library import db
 
 bp = Blueprint('rental', __name__)
 
+@bp.before_request
+def before_request():
+    if 'user_id' not in session:
+        return redirect(url_for('user.login'))
 
 # 대여 기록
 @bp.route('/rented_books', methods=['GET'])
@@ -64,4 +68,4 @@ def rented_books(book_id):
     book.stock = book.stock + 1
     
     db.session.commit()
-    return redirect(url_for('rental.rented'))
+    return redirect(url_for('rental.return_books'))

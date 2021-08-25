@@ -5,7 +5,10 @@ from library import db
 
 bp = Blueprint('book', __name__)
 
-
+@bp.before_request
+def before_request():
+    if 'user_id' not in session:
+        return redirect(url_for('user.login'))
 
 @bp.route('/mainpage', methods=["GET"])
 def mainpage():
