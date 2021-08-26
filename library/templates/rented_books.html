@@ -11,6 +11,13 @@
             <a href="/detail/{{ book.BOOK.id }}" class="book-title">
                 {{ book.BOOK.book_name }}
             </a>
+            <div class="book-star">
+                {% if not book.rating %}
+                    별점이 없습니다.
+                {% else %}
+                    {{ book.rating }}점
+                {% endif %}
+            </div>
             <div class="book-stock">
                 <p>{{ book.start_date }}</p>
                 <p>~ {{ book.end_date }}</p>

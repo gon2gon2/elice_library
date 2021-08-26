@@ -89,16 +89,17 @@ input {
 }
 
 .book-title{
-    /* border: red 1px solid; */
     margin-top:10px;
     height:40px;
     font-size: 10px;
     text-align: center;
+    
 }
 
 .book-title a{
     text-decoration: none;
     color:black;
+    vertical-align: middle;
 }
 
 .book-star {
