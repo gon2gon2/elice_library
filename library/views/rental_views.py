@@ -56,7 +56,7 @@ def return_books():
 @bp.route('/return_book/<int:book_id>', methods=['GET'])
 def rented_books(book_id):
     user_id = session['user_id']
-    book_returned = Rental.query.filter((Rental.book_id==book_id) & (Rental.user_id == user_id)).first()
+    book_returned = Rental.query.filter((Rental.book_id==book_id) & (Rental.user_id == user_id) * (Rental.returned == 0)).one()
     book = Book.query.filter(Book.id == book_id).first()
     
     # 반납할 책을 찾아서 Rental에서 삭제
