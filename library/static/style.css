@@ -207,17 +207,9 @@ input {
 }
 
 /* row-3 */
-.detail > .detail-reply {
-    border:2px rgba(128, 128, 128, 0.521) solid;
-    margin: 0px 60px;
-    padding: 10px;
-}
+
 
 /* 별점 */
-
-/* .rating{
-    display:none;
-} */
 
 
 .rating > input[type=checkbox]{
@@ -228,16 +220,44 @@ input {
 }
 
 
-
-.box{
-    display:inline;
-}
-
-#reply {
-    width:99%;
-}
-
 #reply-submit{
     width:10%;
     margin-right: 0px;
+}
+
+
+.star {
+    display:inline;
+    height:100%;
+    width: 100%;
+    max-width: 15px;
+    max-height: 15px;
+}
+
+#reply{
+    border:2px rgba(128, 128, 128, 0.521) solid;
+    margin: 0px 60px;
+    padding: 10px;
+}
+
+
+#reply{
+    display:flex;
+    flex-direction: column;
+}
+
+.reply-box {
+    display:flex;
+    flex-direction:row;
+    justify-content: flex-start;
+}
+
+.reply-box > .star-box {
+    width:100px;
+    border:red 1px solid;
+}
+
+.reply-box > .writer {
+    font-size:12px;
+    margin-left:auto;
 }

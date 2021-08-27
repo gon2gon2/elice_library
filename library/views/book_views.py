@@ -42,7 +42,6 @@ def detail(book_id):
         reply = book.reply
         star = []
         for r in reply:
-            print(r)
             star.append(r.rating)
         avg = sum(star)/len(star)
         book.rating = avg
