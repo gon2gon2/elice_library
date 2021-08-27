@@ -4,7 +4,7 @@
 {% if books %}
     <ul>
     {% for book in books %}
-        <div class="book-card">
+        <div id="{{ book.id }}" class="book-card">
             <div class="book-image">
                 <img src="{{ book.BOOK.image_path }}" alt="책 이미지">
             </div>
