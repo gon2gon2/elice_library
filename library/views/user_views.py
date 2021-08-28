@@ -23,6 +23,9 @@ def login():
     elif request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
+        
+        if (email is None) or (password in None):
+            return "값을 정확히 입력해주세요!"
 
         user = User.query.filter(User.email==email).first()
         
