@@ -21,8 +21,11 @@ def login():
         return render_template('login.html')
 
     elif request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
+        try: email = request.form['email']
+        except: return "값을 정확히 입력해주세요!"
+        
+        try: password = request.form['password']
+        except: return "값을 정확히 입력해주세요!"
         
         if (email is None) or (password in None):
             return "값을 정확히 입력해주세요!"
