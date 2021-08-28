@@ -25,7 +25,11 @@
                 </div>
 
                 <div class="book-star">
-                    * * * * *
+                    {% if not book.rating %}
+                        별점이 없습니다.
+                    {% else %}
+                        {{ book.rating }}점
+                    {% endif %}
                 </div>
 
                 <div class="book-stock">

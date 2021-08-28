@@ -21,13 +21,17 @@ def login():
         return render_template('login.html')
 
     elif request.method == 'POST':
-        email = request.form['email']
+        email = request.form['email']       
         password = request.form['password']
+        
 
         user = User.query.filter(User.email==email).first()
         
+        if user is None:
+            return "회원정보가 존재하지 않습니다!"
+        
         if password != user.password:
-            return jsonify({'status': "fail"})
+            return "비밀번호가 일치하지 않습니다!"
         
         session.clear()
         session['user_id'] = user.id

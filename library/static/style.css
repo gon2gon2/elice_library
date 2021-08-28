@@ -89,16 +89,17 @@ input {
 }
 
 .book-title{
-    /* border: red 1px solid; */
     margin-top:10px;
     height:40px;
     font-size: 10px;
     text-align: center;
+    
 }
 
 .book-title a{
     text-decoration: none;
     color:black;
+    vertical-align: middle;
 }
 
 .book-star {
@@ -206,34 +207,57 @@ input {
 }
 
 /* row-3 */
-.detail > .detail-reply {
+
+
+/* 별점 */
+
+
+.rating > input[type=checkbox]{
+    display: inline;
+    background-image: url('./star.png');
+    height: 30px;
+    width: 30px;
+}
+
+
+#reply-submit{
+    width:10%;
+    margin-right: 0px;
+}
+
+
+.star {
+    display:inline;
+    height:100%;
+    width: 100%;
+    max-width: 15px;
+    max-height: 15px;
+}
+
+#reply{
     border:2px rgba(128, 128, 128, 0.521) solid;
     margin: 0px 60px;
     padding: 10px;
 }
 
-/* 별점 */
 
-/* .rating{
-    display:none;
-} */
-
-.rating > .rate_radio{
-    display: inline;
-    background-image: url('../static/star.png');
-    height: 30px;
-    width: 30px;
+#reply{
+    display:flex;
+    flex-direction: column;
 }
 
-.box{
-    display:inline;
+.reply-box {
+    display:flex;
+    flex-direction:row;
+    justify-content: flex-start;
 }
 
-#reply {
-    width:99%;
+.reply-box > .star-box {
+    width:100px;
+    border:red 1px solid;
 }
 
-#reply-submit{
-    width:10%;
-    margin-right: 0px;
+.reply-box > .writer {
+    font-size:12px;
+    margin-left:auto;
 }

@@ -29,32 +29,38 @@
         <p>{{ book['description'] }}</p>
     </div>
     <h4 class="detail-title">댓글</h4>
-    <div class="detail-reply detail-row"> 
+    <div id="reply" class="detail-reply detail-row"> 
         {% for reply in book.reply %}
-        <div style="display:block">
-            {{ reply.USER.name }}
-            {{ reply.comment }}
-            {{ reply.rating }}
+        <div class="reply-box">
+            <div class="star-box">
+                {% for i in range(reply.rating) %}
+                    <img class="star" src="../static/star.png" alt="">
+                {% endfor %}
+            </div>
+            <div class="comment">
+                {{ reply.comment }}
+            </div>
+            <div class="writer">
+                {{ reply.USER.name }}
+            </div>
         </div>
         {% endfor %}
         <form method='post'>
-            <input id="reply" name="comment" class='input-style-1' type="text" placeholder="댓글달기">
-
+            <input id="my-reply" name="comment" class='input-style-1' type="text" placeholder="댓글달기">
             <!-- 별점 기능 -->
             <div class="rating">
                 <!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
-                <input type="checkbox" name="rating" id="rating1" value="1" class="rate_radio" title="1점">
+                <input type="checkbox" name="rating1" id="rating1" value="1" class="rate_radio" title="1점">
                 <label for="rating1"></label>
-                <input type="checkbox" name="rating" id="rating2" value="2" class="rate_radio" title="2점">
+                <input type="checkbox" name="rating2" id="rating2" value="2" class="rate_radio" title="2점">
                 <label for="rating2"></label>
-                <input type="checkbox" name="rating" id="rating3" value="3" class="rate_radio" title="3점" >
+                <input type="checkbox" name="rating3" id="rating3" value="3" class="rate_radio" title="3점" >
                 <label for="rating3"></label>
-                <input type="checkbox" name="rating" id="rating4" value="4" class="rate_radio" title="4점">
+                <input type="checkbox" name="rating4" id="rating4" value="4" class="rate_radio" title="4점">
                 <label for="rating4"></label>
-                <input type="checkbox" name="rating" id="rating5" value="5" class="rate_radio star" title="5점">
+                <input type="checkbox" name="rating5" id="rating5" value="5" class="rate_radio" title="5점">
                 <label for="rating5"></label>
             </div>
-
             <input id="reply-submit" class='btn' type="submit" value="작성하기">
         </form>
     </div>

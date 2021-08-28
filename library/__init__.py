@@ -75,6 +75,6 @@ def create_app():
         for book in books:
             book.stock = 5
         db.session.commit()
-        return redirect(url_for('mainpage'))
+        return redirect(url_for('book.mainpage'))
 
     return app

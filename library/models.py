@@ -14,7 +14,7 @@ class Book(db.Model):
     description = db.Column(db.Text, nullable=False)
     image_path = db.Column(db.Text, nullable=False)
     stock = db.Column(db.Integer, nullable=False)
-    rating = db.Column(db.Float, nullable=False)    
+    rating = db.Column(db.Float, nullable=False, default=0)    
     
     def __init__(self, id, book_name, publisher, author, published_at, pages, isbn, description, image_path, stock, rating):
         self.id = id
@@ -68,7 +68,8 @@ class Reply(db.Model):
     rating = db.Column(db.Integer, default=5)
     comment = db.Column(db.Text, nullable=False)
     
-    def __init__(self, user_id, book_id, comment):
+    def __init__(self, user_id, book_id, comment, rating):
         self.user_id = user_id
         self.book_id = book_id
         self.comment = comment
+        self.rating = rating

@@ -7,6 +7,10 @@ from library import db
 
 bp = Blueprint('rental', __name__)
 
+@bp.before_request
+def before_request():
+    if 'user_id' not in session:
+        return redirect(url_for('user.login'))
 
 # 대여 기록
 @bp.route('/rented_books', methods=['GET'])
@@ -49,11 +53,17 @@ def return_books():
         
 
 #  반납기능
-@bp.route('/return_book/<int:book_id>', methods=['GET'])
-def rented_books(book_id):
+@bp.route('/return_book/<int:rental_id>', methods=['GET'])
+def return_book(rental_id): 
     user_id = session['user_id']
-    book_returned = Rental.query.filter((Rental.book_id==book_id) & (Rental.user_id == user_id)).first()
-    book = Book.query.filter(Book.id == book_id).first()
+    
+    book_returned = Rental.query.filter((Rental.id==rental_id) & (Rental.user_id == user_id) & (Rental.returned == 0)).one_or_none()
+    
+    if book_returned is None:
+        flash('유효하지 않은 url입니다.')
+        return redirect(url_for('rental.return_books'))
+    
+    book = Book.query.filter(Book.id == book_returned.BOOK.id).first()
     
     # 반납할 책을 찾아서 Rental에서 삭제
     # 날짜를 오늘로 바꾸고 returned를 True로 바꿈
@@ -64,4 +74,4 @@ def rented_books(book_id):
     book.stock = book.stock + 1
     
     db.session.commit()
-    return redirect(url_for('rental.rented'))
+    return redirect(url_for('rental.return_books'))
