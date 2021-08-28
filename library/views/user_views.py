@@ -27,7 +27,7 @@ def login():
 
         user = User.query.filter(User.email==email).first()
         
-        if user in None:
+        if user is None:
             return "회원정보가 존재하지 않습니다!"
         
         if password != user.password:
